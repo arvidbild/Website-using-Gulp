@@ -1,6 +1,7 @@
 "use strict"
 
 var    gulp = require('gulp'),
+     uglify = require('gulp-uglify'),
      concat = require("gulp-concat"),
        sass = require('gulp-sass'),
      rename = require("gulp-rename"),
@@ -13,20 +14,20 @@ runSequence = require('run-sequence'),
 
 //Concat the scripts
 gulp.task("scripts", function () {
-    return gulp.src([
-        "js/circle/autogrow.js",
-        "js/circle/circle.js"])
+    return gulp.src("js/**/*.js")
     .pipe(sourcemaps.init())
+    .pipe(uglify())
     .pipe(concat("all.min.js"))
     .pipe(sourcemaps.write("./"))
     .pipe(gulp.dest("dist/scripts"));
     });  
 
+
 //compile css
 gulp.task('styles', function () {
     return gulp.src('sass/global.scss')
     .pipe(sourcemaps.init())
-    .pipe(sass())
+    .pipe(sass({outputStyle: 'compressed'}))
     .pipe(rename("all.min.css"))
     .pipe(sourcemaps.write("./"))
     .pipe(gulp.dest('dist/styles'));
