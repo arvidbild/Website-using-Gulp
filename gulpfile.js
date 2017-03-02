@@ -50,10 +50,12 @@ gulp.task("clean", function () {
 
 });
 
-//watch for changes
-gulp.task("watch", function(event) {
-  gulp.watch("js/**/*.js", ['scripts']);       
+// gulp watch command first load the server and then run update on every time the script is changed.
+gulp.task("watch",["serve"], function () {
+    gulp.watch("js/**/*.js", ["scripts"]);  
+
 });
+
 
 //As a developer, I should be able to run the gulp command at the command line to run the “build” task.
 gulp.task("build", function () {
@@ -72,5 +74,3 @@ gulp.task('serve', function() {
     });
 
 });
-
-
